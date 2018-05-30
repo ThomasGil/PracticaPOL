@@ -5,6 +5,8 @@
  */
 package Controlador.app;
 
+import Modelo.app.Dependencia;
+import Modelo.app.Perfil;
 import Modelo.app.Usuarios;
 import Modelo.dao.UsuarioDao;
 import org.hibernate.SessionFactory;
@@ -31,16 +33,20 @@ public class InicioControlador {
     
     @RequestMapping("/")
     public String Inicio(Model model){
+        
+        model.addAttribute("dependencias", Dependencia.values());
+        model.addAttribute("Perfiles", Perfil.values());
         model.addAttribute(new Usuarios());
+        
         return "inicio";
     } 
     
     @RequestMapping(value = "/registrar", method = RequestMethod.POST)
     public String Registrar(Usuarios usuario, Model model){
         usuario.setActivo(true);
-        usuarioDao.eliminar(usuario.getId());
-        Usuarios result = usuarioDao.buscar(usuario.getId());
-        model.addAttribute("mensajeBien", "" + result.getId() + ", " + result.getFechaNacimiento());
+        model.addAttribute("mensajeBien", usuario.getPerfil()[0]);
+        //usuarioDao.registrar(usuario);
+
         return "inicio";
     }
     

@@ -3,6 +3,10 @@
     Created on : 29/05/2018, 05:36:40 PM
     Author     : Personal
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,7 +29,18 @@
                 <form:input path="id" />
                 <form:label path="fechaNacimiento"> Fecha de Nacimiento </form:label>
                 <form:input path="fechaNacimiento" type="Date"/>
-
+                <form:label path="dependencia"> Dependencia </form:label>
+                <form:select path="dependencia">                     
+                    <c:forEach items="${dependencias}" var="dependencia">
+                            <option value="${dependencia}">${dependencia}</option>
+                    </c:forEach>      
+                </form:select>
+                <form:label path="perfil"> Perfil </form:label>
+                <form:select multiple="multiple" path="perfil">                     
+                    <c:forEach items="${Perfiles}" var="perfil">
+                            <option value="${perfil}">${perfil}</option>
+                    </c:forEach>      
+                </form:select>
                 <input type="submit" value="Registrar">
                 </form:form>
             </div>
