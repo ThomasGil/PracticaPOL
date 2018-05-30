@@ -45,5 +45,7 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3305/prueba_pol?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+    <mapping resource="Modelo/app/Usuarios.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
