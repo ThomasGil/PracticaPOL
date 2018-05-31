@@ -65,6 +65,7 @@ public class InicioControlador {
                         usuarioDao.registrar(user);
                         perfilDao.registrar(usuario.getId(), perfil);
                         model.addAttribute("mensajeBien", "Usuario Registrado");
+                        model.addAttribute("usuarios", usuario);
 
                     } catch (Exception e) {
                         model.addAttribute("mensajeError", "Hubo un error intentelo nuevamente");
@@ -79,7 +80,8 @@ public class InicioControlador {
                         perfilDao.registrar(usuario.getId(), perfil);
                         
                         model.addAttribute("mensajeBien", "Usuario Actualizado");
-
+                        return "inicio";
+ 
                     } catch (Exception e) {
                         model.addAttribute("mensajeError", "Hubo un error intentelo nuevamente");
                     }
@@ -91,7 +93,7 @@ public class InicioControlador {
         model.addAttribute("Perfiles", Perfil.values());     
         model.addAttribute(new Usuario());
         
-        return "inicio";
+        return "consultar";
     }  
     
 }

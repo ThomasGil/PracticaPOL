@@ -11,53 +11,64 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
         <title>JSP Page</title>
     </head>
     <body>
-        <div>
+        <div class="container">
+            <div class="row">
+                <p><h2> Ingrese la cedula del usaurio a consultar o eliminar </h2></p>
+            </div>
+            <div class="row">
                 <p style="color: red">${mensajeError}</p>
                 <p style="color: green">${mensajeBien}</p>
-        </div>
-        <div>
-                <form:form modelAttribute="usuario" action="usuario.rd">
-                    <table>
-                        <tr>
-                            <td><form:label path="id"> Id </form:label></td>
-                            <td><form:input path="id" ytpe="number"/></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <input type="submit" name="action" value="consultar">
-                                <input type="submit" name="action" value="eliminar">
-                            </td>
-                        </tr>
-                    </table>
-                </form:form>
-                
-        </div>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th> id </th>
-                        <th> Fecha Nacimiento </th>
-                        <th> Activo </th>
-                        <th> Dependencia </th>
-                        <th> Perfil </th>
-                </thead>
-                <tr>
-                    <td>${usuarios.id}</td>
-                    <td>${usuarios.fechaNacimiento}</td>
-                    <td>${usuarios.activo}</td>
-                    <td>${usuarios.dependencia}</td>
-                    <td>
-                        <c:forEach items="${usuarios.perfil}" var="perfil">
-                            <p><c:out value="${perfil}"/></p>
-                        </c:forEach> 
-                    </td>
+            </div>
+            <div class="row">
+                    <form:form modelAttribute="usuario" action="usuario.rd">
+                        <div class="form-group">
+                                <form:label path="id"> Id </form:label>
+                                <form:input path="id" ytpe="number"/>
+                        </div>
+                        <div class="form-group">
+                                <td colspan="2">
+                                    <input type="submit" name="action" value="consultar" class="btn btn-primary">
+                                    <input type="submit" name="action" value="eliminar" class="btn btn-primary">
+                        </div>                      
+                    </form:form>
 
-                </tr>
-            </table>
+            </div>
+            <div class="row">
+                <table class="table">
+                  <caption>Info Usuario</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">id</th>
+                      <th scope="col">Fecha Nacimiento</th>
+                      <th scope="col">Activo</th>
+                      <th scope="col">Dependencia</th>
+                      <th scope="col">Perfil</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">${usuarios.id}</th>
+                      <td>${usuarios.fechaNacimiento}</td>
+                      <td>${usuarios.activo}</td>
+                      <td>${usuarios.dependencia}</td>
+                      <td>
+                        <c:forEach items="${usuarios.perfil}" var="perfil">
+                          <p><c:out value="${perfil}"/></p>
+                        </c:forEach> 
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="row">
+                    <p>
+                        <a href="/practicaPOL" class="btn btn-link"> Ir a inicio</a>
+                    </p> 
+            </div>
         </div>
     </body>
 </html>

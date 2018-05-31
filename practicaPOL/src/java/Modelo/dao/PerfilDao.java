@@ -61,9 +61,25 @@ public class PerfilDao {
         
         List<Perfiles> perfiles;
         session.getCurrentSession().beginTransaction();
-        perfiles = session.getCurrentSession().createQuery("from Perfiles").list();
+        perfiles = (List<Perfiles>) session.getCurrentSession().createSQLQuery("from Perfiles").list();
         session.getCurrentSession().getTransaction();
     
         return perfiles;
+    }
+    
+    public Perfil[] obtenerPerfilesUsuario(int id){
+        
+        List<Perfiles> perfiles;
+        String hql = "SELECT perfil FROM Perfiles WHERE id = "+id+"";
+        session.getCurrentSession().beginTransaction();
+        perfiles = (List<Perfiles>) session.getCurrentSession().createSQLQuery(hql).list();
+        session.getCurrentSession().getTransaction();
+        
+        Perfil[] per = new Perfil[perfiles.size()];
+        
+        for (int i = 0; i < per.length; i++) {
+            per[i] = Perfil.valueOf(perfiles.get(i).getPerfil());
+        }
+        return per;
     }
 }
