@@ -4,9 +4,6 @@
     Author     : Personal
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,26 +21,31 @@
                 <p style="color: green">${mensajeBien}</p>
             </div>
             <div>
-                <form:form modelAttribute="usuarios" action="registrar">
+                <form:form modelAttribute="usuario" action="registrar">
                 <form:label path="id"> id </form:label>
-                <form:input path="id" />
+                <form:input path="id" type = "number"/>
+                
                 <form:label path="fechaNacimiento"> Fecha de Nacimiento </form:label>
                 <form:input path="fechaNacimiento" type="Date"/>
+                
                 <form:label path="dependencia"> Dependencia </form:label>
                 <form:select path="dependencia">                     
                     <c:forEach items="${dependencias}" var="dependencia">
                             <option value="${dependencia}">${dependencia}</option>
                     </c:forEach>      
                 </form:select>
+                            
                 <form:label path="perfil"> Perfil </form:label>
                 <form:select multiple="multiple" path="perfil">                     
                     <c:forEach items="${Perfiles}" var="perfil">
                             <option value="${perfil}">${perfil}</option>
                     </c:forEach>      
-                </form:select>
+                </form:select>              
+                     
                 <input type="submit" value="Registrar">
                 </form:form>
             </div>
+
             <div>                       
 				<input type="submit" name="action" value="Add" />
 				<input type="submit" name="action" value="Edit" />

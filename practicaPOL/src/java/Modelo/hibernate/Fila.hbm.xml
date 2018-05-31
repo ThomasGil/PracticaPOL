@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 30/05/2018 02:43:44 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.hibernate.Fila" table="fila" catalog="prueba_pol" optimistic-lock="version">
+        <composite-id name="id" class="Modelo.hibernate.FilaId">
+            <key-property name="idUsuario" type="int">
+                <column name="idUsuario" />
+            </key-property>
+            <key-property name="idTarea" type="int">
+                <column name="idTarea" />
+            </key-property>
+        </composite-id>
+        <property name="duracion" type="int">
+            <column name="duracion" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -5,10 +5,18 @@
  */
 package Controlador.app;
 
+import java.util.List;
+
 import Modelo.app.Dependencia;
+import Modelo.app.Fila;
 import Modelo.app.Perfil;
-import Modelo.app.Usuarios;
+import Modelo.app.Usuario;
+import Modelo.dao.PerfilDao;
+import Modelo.dao.TareaDao;
 import Modelo.dao.UsuarioDao;
+import Modelo.hibernate.Perfiles;
+import Modelo.hibernate.Tarea;
+import Modelo.hibernate.Usuarios;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +33,13 @@ public class InicioControlador {
     
     private SessionFactory session;
     private UsuarioDao usuarioDao;
+    private PerfilDao perfilDao; 
+    
     
     public InicioControlador(){
         session = new NewHibernateUtil().getSessionFactory();
         usuarioDao = new UsuarioDao(session);
+        perfilDao = new PerfilDao(session);     
     }
     
     @RequestMapping("/")
@@ -36,18 +47,27 @@ public class InicioControlador {
         
         model.addAttribute("dependencias", Dependencia.values());
         model.addAttribute("Perfiles", Perfil.values());
-        model.addAttribute(new Usuarios());
+        model.addAttribute(new Usuario());
         
         return "inicio";
     } 
     
     @RequestMapping(value = "/registrar", method = RequestMethod.POST)
-    public String Registrar(Usuarios usuario, Model model){
+    public String Registrar(Usuario usuario, Model model){
+        
         usuario.setActivo(true);
-        model.addAttribute("mensajeBien", usuario.getPerfil()[0]);
-        //usuarioDao.registrar(usuario);
-
+        Usuarios user = new Usuarios(usuario.getId(), usuario.getFechaNacimiento(),
+                usuario.isActivo(), usuario.getDependencia().toString());
+        Perfil[] perfil = usuario.getPerfil();
+        
+        usuarioDao.registrar(user);
+   
+        perfilDao.registrar(usuario.getId(), perfil);
+        
+        model.addAttribute("dependencias", Dependencia.values());
+        model.addAttribute("Perfiles", Perfil.values());
+        
         return "inicio";
-    }
+    }    
     
 }
