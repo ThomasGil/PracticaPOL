@@ -6,6 +6,7 @@
 package Modelo.dao;
 
 import Modelo.hibernate.Usuarios;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -48,10 +49,10 @@ public class UsuarioDao {
     }
     
     public void eliminar(int id){
-        Usuarios usuario = buscar(id);
-        
+        String hql = "DELETE FROM usuarios WHERE id = "+id+"";
         session.getCurrentSession().beginTransaction();
-        session.getCurrentSession().delete(usuario);
+        Query query = session.getCurrentSession().createSQLQuery(hql);
+        query.executeUpdate();
         session.getCurrentSession().getTransaction().commit();
         
     }

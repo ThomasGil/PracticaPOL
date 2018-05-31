@@ -15,12 +15,25 @@
     </head>
     <body>
         <div>
-                <form:form modelAttribute="usuario" action="consulta">
-                <form:label path="id"> origen </form:label>
-                <form:input path="id" ytpe="number"/>
-                
-                <input type="submit" value="Consultar">
+                <p style="color: red">${mensajeError}</p>
+                <p style="color: green">${mensajeBien}</p>
+        </div>
+        <div>
+                <form:form modelAttribute="usuario" action="usuario.rd">
+                    <table>
+                        <tr>
+                            <td><form:label path="id"> Id </form:label></td>
+                            <td><form:input path="id" ytpe="number"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="submit" name="action" value="consultar">
+                                <input type="submit" name="action" value="eliminar">
+                            </td>
+                        </tr>
+                    </table>
                 </form:form>
+                
         </div>
         <div>
             <table>
@@ -46,10 +59,5 @@
                 </tr>
             </table>
         </div>
-                    
-                    <p> ${test} </p>
-                    <p> ${test0} </p>
-                    <p> ${test1} </p>
-                    <p> ${test2} </p>
     </body>
 </html>

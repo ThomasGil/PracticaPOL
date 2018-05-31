@@ -10,6 +10,7 @@ package Modelo.dao;
 import Modelo.app.Perfil;
 import Modelo.hibernate.Perfiles;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 /**
@@ -38,6 +39,22 @@ public class PerfilDao {
                     session.getCurrentSession().getTransaction().commit();
             }
         }
+    }
+    
+    public void actualizar(Perfiles perfil){
+        
+        session.getCurrentSession().beginTransaction();
+        session.getCurrentSession().update(perfil);
+        session.getCurrentSession().getTransaction().commit();
+        
+    }
+    
+    public void eliminar(int id){
+        String hql = "DELETE FROM Perfiles WHERE id = "+id+"";
+        session.getCurrentSession().beginTransaction();
+        Query query = session.getCurrentSession().createSQLQuery(hql);
+        query.executeUpdate();
+        session.getCurrentSession().getTransaction().commit();
     }
     
     public List<Perfiles> obtenerPerfiles(){

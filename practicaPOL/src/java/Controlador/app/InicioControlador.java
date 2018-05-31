@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -52,22 +53,45 @@ public class InicioControlador {
         return "inicio";
     } 
     
-    @RequestMapping(value = "/registrar", method = RequestMethod.POST)
-    public String Registrar(Usuario usuario, Model model){
-        
-        usuario.setActivo(true);
+    @RequestMapping(value = "/usuario.cu",method = RequestMethod.POST)
+    public String acciones(Usuario usuario, Model model , @RequestParam String action){
         Usuarios user = new Usuarios(usuario.getId(), usuario.getFechaNacimiento(),
-                usuario.isActivo(), usuario.getDependencia().toString());
+                                     usuario.isActivo(), usuario.getDependencia().toString());
         Perfil[] perfil = usuario.getPerfil();
         
-        usuarioDao.registrar(user);
-   
-        perfilDao.registrar(usuario.getId(), perfil);
+        switch(action.toLowerCase()){
+		case "registrar":
+                    try {
+                        usuarioDao.registrar(user);
+                        perfilDao.registrar(usuario.getId(), perfil);
+                        model.addAttribute("mensajeBien", "Usuario Registrado");
+
+                    } catch (Exception e) {
+                        model.addAttribute("mensajeError", "Hubo un error intentelo nuevamente");
+                    }
+                    break;
+                    
+                case "actualizar":
+                    try {
+                        usuarioDao.actualizar(user);
+                    
+                        perfilDao.eliminar(usuario.getId());
+                        perfilDao.registrar(usuario.getId(), perfil);
+                        
+                        model.addAttribute("mensajeBien", "Usuario Actualizado");
+
+                    } catch (Exception e) {
+                        model.addAttribute("mensajeError", "Hubo un error intentelo nuevamente");
+                    }
+
+                    break;  
+        }
         
         model.addAttribute("dependencias", Dependencia.values());
-        model.addAttribute("Perfiles", Perfil.values());
+        model.addAttribute("Perfiles", Perfil.values());     
+        model.addAttribute(new Usuario());
         
         return "inicio";
-    }    
+    }  
     
 }
