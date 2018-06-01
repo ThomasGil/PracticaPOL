@@ -61,7 +61,7 @@ public class PerfilDao {
         
         List<Perfiles> perfiles;
         session.getCurrentSession().beginTransaction();
-        perfiles = (List<Perfiles>) session.getCurrentSession().createSQLQuery("from Perfiles").list();
+        perfiles = session.getCurrentSession().createQuery("from Perfiles").list();
         session.getCurrentSession().getTransaction();
     
         return perfiles;

@@ -58,10 +58,8 @@ public class consultarControlador {
 		case "consultar":
                     try{
                         Usuario user = obtenerUsuario(usuario,model);
-                        if(0 != user.getId()){
-                            model.addAttribute("usuarios", user);
-                            model.addAttribute("mensajeBien", "Usuario Encontrado");
-                        }
+                        model.addAttribute("usuarios", user);
+                        model.addAttribute("mensajeBien", "Usuario Encontrado");
                         
                     } catch (Exception e) {
                         model.addAttribute("mensajeError", "Hubo un error intentelo nuevamente");
@@ -69,16 +67,13 @@ public class consultarControlador {
                     break;
                     
                 case "eliminar":
-                    /*try {
+                    try {
                         usuarioDao.eliminar(usuario.getId());
                         perfilDao.eliminar(usuario.getId());
                         model.addAttribute("mensajeBien", "Usuario Eliminado");
                     } catch (Exception e) {
                         model.addAttribute("mensajeError", "Hubo un error intentelo nuevamente");
-                    }*/
-                        usuarioDao.eliminar(usuario.getId());
-                        perfilDao.eliminar(usuario.getId());
-                        model.addAttribute("mensajeBien", "Usuario Eliminado");                    
+                    }              
                     break;  
         }
         

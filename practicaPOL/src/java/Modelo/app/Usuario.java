@@ -5,6 +5,7 @@
  */
 package Modelo.app;
 
+import Modelo.hibernate.Usuarios;
 import java.sql.Date;
 import java.util.List;
 
@@ -76,5 +77,9 @@ public class Usuario {
 
     public void setFilas(List<Fila> filas) {
         this.filas = filas;
+    }
+    
+    public Usuarios getUsuario(Usuario usr){
+        return new Usuarios(usr.getId(),usr.getFechaNacimiento(),usr.isActivo(),usr.getDependencia().toString());  
     }
 }
